@@ -1,12 +1,14 @@
 require("dotenv").config();
+const API_KEY = process.env.SEARCHAPI_KEY;
 const axios = require("axios");
 
 async function searchGoogle(query) {
-  const API_KEY = process.env.SEARCHAPI_KEY;
   const URL = `https://www.searchapi.io/api/v1/search?engine=google&q=${encodeURIComponent(query)}&api_key=${API_KEY}`;
 
   try {
     const response = await axios.get(URL);
+    console.log(response.data);
+    
     const organic_results = response.data.organic_results;
     console.log("-------");
 
@@ -32,3 +34,5 @@ if (!query) {
 } else {
   searchGoogle(query);
 }
+
+module.exports = { searchGoogle };
